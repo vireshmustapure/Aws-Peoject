@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nginx Node Mini Project</title>
+</head>
+<body>
+    <h1>User Greeting App</h1>
+    <input type="text" id="name" placeholder="Enter your name">
+    <button onclick="sendData()">Submit</button>
+    <p id="result"></p>
+
+    <script>
+        function sendData() {
+            const name = document.getElementById("name").value;
+
+            fetch("/api/greet", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name: name })
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("result").innerText = data.message;
+            });
+        }
+    </script>
+</body>
+</html>
